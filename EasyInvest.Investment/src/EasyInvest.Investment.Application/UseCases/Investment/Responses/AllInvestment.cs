@@ -1,18 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using EasyInvest.Api.Client.Investimentos.Resposta.Fundos;
-using EasyInvest.Api.Client.Investimentos.Resposta.Lci;
-using EasyInvest.Api.Client.Investimentos.Resposta.TesouroDireto;
+﻿using EasyInvest.Api.Client.Investimentos.Response.Fundos;
+using EasyInvest.Api.Client.Investimentos.Response.Lci;
+using EasyInvest.Api.Client.Investimentos.Response.TesouroDireto;
 
 namespace EasyInvest.Investment.Application.UseCases.Investment.Responses
 {
     public class AllInvestment
     {
-        public TesouroDiretoResposta TesouroDiretoResposta { get; set; }
+        public TesouroDiretoResponse TesouroDiretoResponse { get; set; }
 
-        public LciResposta LciResposta { get; set; }
+        public LciResponse LciResponse { get; set; }
 
-        public FundosResposta FundosResposta { get; set; }
+        public FundosResponse FundosResponse { get; set; }
     }
 }

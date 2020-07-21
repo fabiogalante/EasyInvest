@@ -28,6 +28,14 @@ namespace EasyInvest.Investment.API
             services.AddMediatR(typeof(Result));
             services.AddTransient<ICalculation, Calculation>();
             services.Configure<InvestmentSettings>(Configuration.GetSection(nameof(InvestmentSettings)));
+
+            var uri = Configuration.GetSection("RedisCache:Host").Get<string>();
+
+            services.AddDistributedRedisCache(options =>
+            {
+                options.Configuration = uri;
+                options.InstanceName = Configuration.GetSection("RedisCache:InstanceName").Get<string>();
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,6 +56,8 @@ namespace EasyInvest.Investment.API
             {
                 endpoints.MapControllers();
             });
+
+
         }
     }
 }

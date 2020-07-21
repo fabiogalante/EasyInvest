@@ -1,14 +1,12 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using EasyInvest.Api.Client.Investimentos.Cliente;
-using EasyInvest.Api.Client.Investimentos.Resposta.Fundos;
-using EasyInvest.Api.Client.Investimentos.Resposta.Lci;
-using EasyInvest.Api.Client.Investimentos.Resposta.TesouroDireto;
+﻿using EasyInvest.Api.Client.Investimentos.Cliente;
+using EasyInvest.Api.Client.Investimentos.Response.Fundos;
+using EasyInvest.Api.Client.Investimentos.Response.Lci;
+using EasyInvest.Api.Client.Investimentos.Response.TesouroDireto;
 using EasyInvest.Investment.Application.UseCases.Investment.Queries;
 using EasyInvest.Investment.Application.UseCases.Investment.Responses;
 using MediatR;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace EasyInvest.Investment.Application.UseCases.Investment.Handlers
 {
@@ -37,26 +35,25 @@ namespace EasyInvest.Investment.Application.UseCases.Investment.Handlers
 
             var result = _calculation.ExecuteAllInvestment(new AllInvestment
             {
-                FundosResposta = fundos,
-                LciResposta = rendaFixa,
-                TesouroDiretoResposta = tesouroDireto
+                FundosResponse = fundos,
+                LciResponse = rendaFixa,
+                TesouroDiretoResponse = tesouroDireto
             });
 
             return result;
         }
 
-        private async Task<FundosResposta> GetFundos()
+        private async Task<FundosResponse> GetFundos()
         {
             return await _fundos.GetFundos();
         }
 
-        private async Task<LciResposta> GetLcis()
+        private async Task<LciResponse> GetLcis()
         {
             return await _lcis.GetLcis();
         }
 
-
-        private async Task<TesouroDiretoResposta> GetTesouro()
+        private async Task<TesouroDiretoResponse> GetTesouro()
         {
             return await _tesouroDireto.GetTesouroDireto();
         }

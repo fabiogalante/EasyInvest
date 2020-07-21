@@ -23,6 +23,7 @@ namespace EasyInvest.Api.Client.Investimentos.Extensions
 
             services.AddRefitClient<IFundos>()
                 .ConfigureHttpClient(c => c.BaseAddress = new Uri(configs.Uri));
+
         }
     }
 }

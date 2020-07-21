@@ -10,7 +10,7 @@ namespace EasyInvest.Investment.Application.UseCases.Investment.Handlers
 {
     public class Calculation : ICalculation
     {
-        readonly List<Investimento> _investments = new List<Investimento>();
+        readonly List<Responses.Investment> _investments = new List<Responses.Investment>();
 
         
 
@@ -28,12 +28,12 @@ namespace EasyInvest.Investment.Application.UseCases.Investment.Handlers
 
         private static void GetTotalInvestment(AllInvestment allInvestment, InvestmentResponse result)
         {
-            var rendaFixaValorInvestido = allInvestment.LciResposta.Lcis.Select(v => v.CapitalInvestido).Sum();
+            var rendaFixaValorInvestido = allInvestment.LciResponse.Lcis.Select(v => v.CapitalInvestido).Sum();
 
             var tesouroValorInvestido =
-                allInvestment.TesouroDiretoResposta.TesourosDireto.Select(t => t.ValorInvestido).Sum();
+                allInvestment.TesouroDiretoResponse.TesourosDireto.Select(t => t.ValorInvestido).Sum();
 
-            var fundosValorInvestido = allInvestment.FundosResposta.Fundos.Select(f => f.CapitalInvestido).Sum();
+            var fundosValorInvestido = allInvestment.FundosResponse.Fundos.Select(f => f.CapitalInvestido).Sum();
 
             result.ValorTotal = rendaFixaValorInvestido + tesouroValorInvestido + fundosValorInvestido;
         }
@@ -41,26 +41,26 @@ namespace EasyInvest.Investment.Application.UseCases.Investment.Handlers
         private void GetInvestments(AllInvestment allInvestment, InvestmentResponse result)
         {
 
-            foreach (var tesouroDireto in allInvestment.TesouroDiretoResposta.TesourosDireto)
+            foreach (var tesouroDireto in allInvestment.TesouroDiretoResponse.TesourosDireto)
             {
-                var investment = new Investimento();
+                var investment = new Responses.Investment();
                 CalculationTesouro(investment, tesouroDireto);
 
                 _investments.Add(investment);
             }
 
-            foreach (var fundos in allInvestment.FundosResposta.Fundos)
+            foreach (var fundos in allInvestment.FundosResponse.Fundos)
             {
-                var investment = new Investimento();
+                var investment = new Responses.Investment();
                 CalculationFundos(investment, fundos);
 
                 _investments.Add(investment);
             }
 
 
-            foreach (var rendaFixa in allInvestment.LciResposta.Lcis)
+            foreach (var rendaFixa in allInvestment.LciResponse.Lcis)
             {
-                var investment = new Investimento();
+                var investment = new Responses.Investment();
                 CalculationRendaFixa(investment, rendaFixa);
 
                 _investments.Add(investment);
@@ -69,7 +69,7 @@ namespace EasyInvest.Investment.Application.UseCases.Investment.Handlers
             result.Investimentos = _investments;
         }
 
-        public void CalculationTesouro(Investimento investment, TesouroDireto tesouroDireto)
+        public void CalculationTesouro(Responses.Investment investment, TesouroDireto tesouroDireto)
         {
             const decimal discountPercentage = 0.1m;
 
@@ -81,7 +81,7 @@ namespace EasyInvest.Investment.Application.UseCases.Investment.Handlers
             investment.ValorResgate = CalculationRescue(tesouroDireto.Vencimento, tesouroDireto.DataDeCompra, DateTime.Today, tesouroDireto.ValorTotal);
         }
 
-        private void CalculationFundos(Investimento investment, Fundos fundos)
+        private void CalculationFundos(Responses.Investment investment, Fundos fundos)
         {
             const decimal discountPercentage = 0.15m;
 
@@ -95,7 +95,7 @@ namespace EasyInvest.Investment.Application.UseCases.Investment.Handlers
         }
 
 
-        private void CalculationRendaFixa(Investimento investment, Lcis lcis)
+        private void CalculationRendaFixa(Responses.Investment investment, Lcis lcis)
         {
             const decimal discountPercentage = 0.05m;
 

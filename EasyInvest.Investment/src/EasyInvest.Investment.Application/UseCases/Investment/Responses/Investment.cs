@@ -2,7 +2,7 @@
 
 namespace EasyInvest.Investment.Application.UseCases.Investment.Responses
 {
-    public class Investimento
+    public class Investment
     {
         public string Nome { get; set; }
         public decimal ValorInvestido { get; set; }
