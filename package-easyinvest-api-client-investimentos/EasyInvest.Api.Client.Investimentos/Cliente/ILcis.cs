@@ -1,5 +1,4 @@
-﻿using EasyInvest.Api.Client.Investimentos.Resposta.Lci;
-using Refit;
+﻿using Refit;
 using System.Threading.Tasks;
 using EasyInvest.Api.Client.Investimentos.Response.Lci;
 

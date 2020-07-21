@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using EasyInvest.Api.Client.Investimentos.Response.Lci;
+using EasyInvest.Api.Client.Investimentos.Response.TesouroDireto;
 using EasyInvest.Api.Client.Investimentos.Resposta.Fundos;
-using EasyInvest.Api.Client.Investimentos.Resposta.Lci;
-using EasyInvest.Api.Client.Investimentos.Resposta.TesouroDireto;
 using EasyInvest.Investment.Application.UseCases.Investment.Responses;
 
 namespace EasyInvest.Investment.Application.UseCases.Investment.Handlers
@@ -11,9 +11,6 @@ namespace EasyInvest.Investment.Application.UseCases.Investment.Handlers
     public class Calculation : ICalculation
     {
         readonly List<Responses.Investment> _investments = new List<Responses.Investment>();
-
-        
-
 
         public InvestmentResponse ExecuteAllInvestment(AllInvestment allInvestment)
         {
@@ -93,7 +90,6 @@ namespace EasyInvest.Investment.Application.UseCases.Investment.Handlers
             investment.ValorResgate = CalculationRescue(fundos.DataResgate, fundos.DataCompra, DateTime.Today, fundos.ValorAtual);
 
         }
-
 
         private void CalculationRendaFixa(Responses.Investment investment, Lcis lcis)
         {

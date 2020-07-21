@@ -1,7 +1,6 @@
 ﻿using System;
-using Newtonsoft.Json;
 
-namespace EasyInvest.Api.Client.Investimentos.Resposta.TesouroDireto
+namespace EasyInvest.Api.Client.Investimentos.Response.TesouroDireto
 {
     public class TesouroDireto
     {

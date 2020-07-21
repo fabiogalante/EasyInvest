@@ -7,9 +7,7 @@ namespace EasyInvest.Investment.Application.UseCases.Investment.Responses
     public class AllInvestment
     {
         public TesouroDiretoResponse TesouroDiretoResponse { get; set; }
-
         public LciResponse LciResponse { get; set; }
-
         public FundosResponse FundosResponse { get; set; }
     }
 }

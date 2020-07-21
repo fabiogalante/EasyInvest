@@ -5,8 +5,10 @@ using System.Threading;
 using System.Threading.Tasks;
 using Bogus;
 using EasyInvest.Api.Client.Investimentos.Cliente;
+using EasyInvest.Api.Client.Investimentos.Response.Fundos;
+using EasyInvest.Api.Client.Investimentos.Response.Lci;
 using EasyInvest.Api.Client.Investimentos.Response.TesouroDireto;
-using EasyInvest.Api.Client.Investimentos.Resposta.TesouroDireto;
+using EasyInvest.Api.Client.Investimentos.Resposta.Fundos;
 using EasyInvest.Investment.Application.UseCases.Investment.Handlers;
 using EasyInvest.Investment.Application.UseCases.Investment.Queries;
 using EasyInvest.Investment.Application.UseCases.Investment.Responses;
@@ -23,7 +25,9 @@ namespace EasyInvest.Investment.Tests
         private readonly Mock<ILcis> _mockLicis = new Mock<ILcis>();
         private readonly Mock<IFundos> _mockFundos = new Mock<IFundos>();
         private readonly TesouroDiretoResponse _tesouroDireto;
-       
+        private readonly LciResponse _lciResponse;
+        private readonly FundosResponse _fundosResponse;
+
 
         private readonly InvestmentHandler _sut;
 
@@ -33,7 +37,20 @@ namespace EasyInvest.Investment.Tests
         {
             _sut = new InvestmentHandler(_mockTesouroDireto.Object, _mockLicis.Object, _mockFundos.Object, _mockCalculation.Object);
 
-           
+            _lciResponse = new LciResponse
+            {
+                Lcis = new List<Lcis>
+                {
+                    new Lcis
+                    {
+                        DataOperacao = Convert.ToDateTime("2015-03-01T00:00:00"),
+                        CapitalInvestido = 10000m,
+                        CapitalAtual = 12000m,
+                        Nome = "Selic",
+                        Vencimento = Convert.ToDateTime("2022-03-01T00:00:00"),
+                    }
+                }
+            };
 
             _tesouroDireto = new TesouroDiretoResponse
             {
@@ -49,10 +66,26 @@ namespace EasyInvest.Investment.Tests
                     }
                 }
             };
+
+
+            _fundosResponse = new FundosResponse
+            {
+                Fundos = new List<Fundos>
+                {
+                    new Fundos
+                    {
+                        DataCompra = Convert.ToDateTime("2015-03-01T00:00:00"),
+                        CapitalInvestido = 10000m,
+                        ValorAtual = 12000m,
+                        Nome = "Selic",
+                        DataResgate = Convert.ToDateTime("2022-03-01T00:00:00"),
+                    }
+                }
+            };
         }
 
         [Fact]
-        public async Task Handle()
+        public async Task Handle_Execute_Investment()
         {
             // Arrange
 
@@ -69,9 +102,9 @@ namespace EasyInvest.Investment.Tests
                 
 
             _mockCalculation.Setup(c => c.ExecuteAllInvestment(It.IsAny<AllInvestment>())).Returns(response);
-
             _mockTesouroDireto.Setup(t => t.GetTesouroDireto()).ReturnsAsync(_tesouroDireto);
-
+            _mockFundos.Setup(t => t.GetFundos()).ReturnsAsync(_fundosResponse);
+            _mockLicis.Setup(t => t.GetLcis()).ReturnsAsync(_lciResponse);
             var result =  await _sut.Handle(new InvestmentQuery(), CancellationToken.None);
 
             result.ValorTotal.Should().Be(1800);

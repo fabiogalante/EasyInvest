@@ -1,7 +1,6 @@
-﻿using System.Threading.Tasks;
-using EasyInvest.Api.Client.Investimentos.Response.TesouroDireto;
-using EasyInvest.Api.Client.Investimentos.Resposta.TesouroDireto;
+﻿using EasyInvest.Api.Client.Investimentos.Response.TesouroDireto;
 using Refit;
+using System.Threading.Tasks;
 
 namespace EasyInvest.Api.Client.Investimentos.Cliente
 {

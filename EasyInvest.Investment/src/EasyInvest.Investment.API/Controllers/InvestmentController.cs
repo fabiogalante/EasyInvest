@@ -1,10 +1,9 @@
-﻿using System;
-using EasyInvest.Investment.Application.UseCases.Investment.Queries;
+﻿using EasyInvest.Investment.Application.UseCases.Investment.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
-using EasyInvest.Investment.Application.UseCases.Investment.Responses;
 using Microsoft.Extensions.Caching.Memory;
+using System;
+using System.Threading.Tasks;
 
 namespace EasyInvest.Investment.API.Controllers
 {
@@ -25,7 +24,7 @@ namespace EasyInvest.Investment.API.Controllers
             var cacheEntry = await
                 cache.GetOrCreateAsync("keyInvestment", entry =>
                 {
-                    entry.AbsoluteExpiration = DateTime.Now.Date;
+                    entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromHours(6); 
                     var query = new InvestmentQuery();
                     return  _mediator.Send(query);
                 });

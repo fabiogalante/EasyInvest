@@ -1,7 +1,6 @@
-using System;
-using EasyInvest.Api.Client.Investimentos.Resposta.TesouroDireto;
 using EasyInvest.Investment.Application.UseCases.Investment.Handlers;
 using FluentAssertions;
+using System;
 using Xunit;
 
 namespace EasyInvest.Investment.Tests

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace EasyInvest.Api.Client.Investimentos.Resposta.Lci
+namespace EasyInvest.Api.Client.Investimentos.Response.Lci
 {
     public class Lcis
     {

@@ -6,6 +6,6 @@ namespace EasyInvest.Api.Client.Investimentos.Response.TesouroDireto
     public class TesouroDiretoResponse
     {
          [JsonProperty("tds")]
-        public List<Resposta.TesouroDireto.TesouroDireto> TesourosDireto { get; set; }
+        public List<TesouroDireto> TesourosDireto { get; set; }
     }
 }
