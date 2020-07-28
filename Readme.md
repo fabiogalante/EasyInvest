@@ -43,7 +43,7 @@ Testes do Handler e regras de negócios, como cálculo de resgate.
 
 
 ## Hospedagem do projeto (Swagger)
-http://easyinvest.azurewebsites.net/swagger/index.html
+http://easyinvest.azurewebsites.net/swagger/index.html (Removido)
 
 ## Monitoria(HealthCheck)
-http://easyinvest.azurewebsites.net/check
+http://easyinvest.azurewebsites.net/check (Removido)
